@@ -144,6 +144,10 @@ if uploaded_file is not None:
     graph_type = st.selectbox("", ["전체 보기", "최근 24시간 평균 온도", "2주 평균 온도", "일단위 최대 온도"])
 
     def plot_graph(graph_type):
+        font_path = find_nanum_font()
+        if font_path:
+            plt.rc('font', family=fm.FontProperties(fname=font_path).get_name())
+        
         if graph_type in ["전체 보기", "최근 24시간 평균 온도"]:
             last_24_hours = datetime.now() - timedelta(hours=24)
             recent_data = filtered_data[filtered_data['날짜'] >= last_24_hours]
