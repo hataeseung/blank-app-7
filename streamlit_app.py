@@ -115,15 +115,17 @@ if uploaded_file is not None:
     daily_avg_temp_data.columns = ['날짜', '평균 온도']
 
     # 최대/최소 온도 정보도 최근 1개월 동안의 데이터를 기준으로 변경
-    max_temp_row = month_data.loc[month_data['온도'].idxmax()]
-    min_temp_row = month_data.loc[month_data['온도'].idxmin()]
-    max_module = month_data.sort_values(by='날짜', ascending=False).groupby('모듈번호').first().reset_index().loc[month_data['온도'].idxmax()]
+    if not month_data.empty:
+        max_temp_row = month_data.loc[month_data['온도'].idxmax()]
+        min_temp_row = month_data.loc[month_data['온도'].idxmin()]
 
-    # 통계 정보 출력
-    st.markdown('<p class="medium-font">📈 <b>각 모듈번호의 현재 온도:</b></p>', unsafe_allow_html=True)
-    st.dataframe(month_data[['모듈번호', '온도']].drop_duplicates())
-
-    st.markdown(f'<p class="medium-font">🔥 <b>가장 높은 온도를 가진 모듈번호:</b> {max_module["모듈번호"]} (온도: {max_module["온도"]}°C)</p>', unsafe_allow_html=True)
+        # 최대 온도를 가진 모듈 정보 출력
+        st.markdown(
+            f'<p class="medium-font">🔥 <b>가장 높은 온도를 가진 모듈번호:</b> {max_temp_row["모듈번호"]} (온도: {max_temp_row["온도"]}°C)</p>',
+            unsafe_allow_html=True
+        )
+    else:
+        st.warning("데이터가 없습니다.")
 
     # 최근 1개월 평균 온도 출력
     st.markdown('<p class="medium-font">🌡️ <b>최근 1개월 평균 온도:</b></p>', unsafe_allow_html=True)
