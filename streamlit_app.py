@@ -42,14 +42,15 @@ if uploaded_file:
     else:
         filtered_data = data[data['통합국명'] == selected_location]
 
-    one_week_ago = datetime.now() - timedelta(days=7)
-    week_data = filtered_data[filtered_data['날짜'] >= one_week_ago]
+    # 최근 1개월 데이터 필터링
+    one_month_ago = datetime.now() - timedelta(days=30)
+    month_data = filtered_data[filtered_data['날짜'] >= one_month_ago]
     
-    # week_data가 비어있지 않을 경우에만 idxmax 및 idxmin 사용
-    if not week_data.empty:
-        max_temp_row = week_data.loc[week_data['온도'].idxmax()]
-        min_temp_row = week_data.loc[week_data['온도'].idxmin()]
+    # month_data가 비어있지 않을 경우에만 idxmax 및 idxmin 사용
+    if not month_data.empty:
+        max_temp_row = month_data.loc[month_data['온도'].idxmax()]
+        min_temp_row = month_data.loc[month_data['온도'].idxmin()]
         st.write("최고 온도:", max_temp_row['온도'], "날짜:", max_temp_row['날짜'])
         st.write("최저 온도:", min_temp_row['온도'], "날짜:", min_temp_row['날짜'])
     else:
-        st.warning("최근 1주일 동안 온도 데이터가 없습니다.")
+        st.warning("최근 1개월 동안 온도 데이터가 없습니다.")
