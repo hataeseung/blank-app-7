@@ -3,23 +3,14 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 import platform
-import subprocess
-import sys
 
-# matplotlib 설치 확인 및 설치
-try:
-    import matplotlib.pyplot as plt
-    import matplotlib.font_manager as fm
-except ModuleNotFoundError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
-    import matplotlib.pyplot as plt
-    import matplotlib.font_manager as fm
+# matplotlib 임포트
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 
 # 운영체제별 폰트 경로 설정 함수
 def find_nanum_font():
     system = platform.system()
-    font_path = None
-
     font_path = "NanumGothic.ttf"
 
     # 폰트가 없을 경우 자동 검색
