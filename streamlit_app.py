@@ -1,17 +1,24 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
-import os
-import platform
-
-# matplotlib 임포트
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import os
+import platform
 
 # 운영체제별 폰트 경로 설정 함수
 def find_nanum_font():
     system = platform.system()
-    font_path = "NanumGothic.ttf"
+    font_path = None
+
+  #  if system == "Windows":
+  #     font_path = r"C:\Windows\Fonts\NanumGothic.ttf"
+  #  elif system == "Linux":
+  #      font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+  #  elif system == "Darwin":  # MacOS
+  #      font_path = "/Library/Fonts/NanumGothic.ttf"
+    
+    font_path ="NanumGothic.ttf"
 
     # 폰트가 없을 경우 자동 검색
     if not font_path or not os.path.exists(font_path):
